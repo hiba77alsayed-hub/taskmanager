@@ -1,21 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Auth } from '../../../core/services/auth';
+import { AuthService } from '../../../core/services/auth';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule], 
+  imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
-export class LoginComponent {
+export class Login {
   private fb = inject(FormBuilder);
-  private authService = inject(Auth);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
-  // Define the form
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
@@ -23,12 +22,17 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value as any).subscribe({
-        next: () => {
-          console.log('Logged in successfully!');
-          this.router.navigate(['/tasks']); // Move to tasks after login
+      this.authService.login(
+        this.loginForm.value.email!,
+        this.loginForm.value.password!
+      ).subscribe({
+        next: (user) => {
+          this.authService.setUser(user);
+          this.router.navigate(['/tasks']);
         },
-        error: (err) => alert('Login failed: ' + err.error.message)
+        error: (err) => {
+          alert('Invalid username or password');
+        }
       });
     }
   }

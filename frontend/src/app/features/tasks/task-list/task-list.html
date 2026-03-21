@@ -1,1 +1,33 @@
-<p>task-list works!</p>
+<div class="tasks-container">
+  <div class="header">
+    <h1>My Project Tasks</h1>
+    <p>Manage your daily activities and progress</p>
+  </div>
+
+  <button (click)="onLogout()">Logout</button>
+
+  @if (authService.isAdmin()) {
+    <button>Add Task</button>
+  }
+
+  <div class="task-grid">
+    @for (task of tasks; track task.id) {
+      <div class="task-card">
+        <div class="status-badge" [attr.data-status]="task.status">
+          {{ task.status }}
+        </div>
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+
+        <!-- ✅ عدلناها من assignedTo لـ userId -->
+        <small>User ID: {{ task.userId }}</small>
+
+        @if (authService.isAdmin()) {
+          <button (click)="deleteTask(task.id)">Delete</button>
+        }
+      </div>
+    } @empty {
+      <div class="empty-state">No tasks found.</div>
+    }
+  </div>
+</div>
