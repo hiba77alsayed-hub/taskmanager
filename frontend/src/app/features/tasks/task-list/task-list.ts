@@ -36,7 +36,8 @@ export class TaskList {
         error: (err) => console.error(err)
       });
     } else {
-      this.taskService.getUserTasks(0).subscribe({
+      const userId = this.authService.currentUser()?.id!;
+      this.taskService.getUserTasks(userId).subscribe({
         next: (tasks) => this.tasks = tasks,
         error: (err) => console.error(err)
       });
