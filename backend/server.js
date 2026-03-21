@@ -73,6 +73,9 @@ app.get('/api/tasks', authenticateToken, (req, res) => {
     if (req.user.role === 'admin') {
         res.json(tasks);
     } else {
+        // console.log('User ID:', req.user.id);
+        // console.log('Tasks:', tasks);
+        // console.log('Filtered:', tasks.filter(t => t.userId === req.user.id));
         res.json(tasks.filter(t => t.userId === req.user.id));
     }
 });
@@ -81,7 +84,7 @@ app.post('/api/tasks', authenticateToken, (req, res) => {
     if (req.user.role !== 'admin') return res.status(403).json({ message: 'Only admins can add tasks' });
     
     const newTask = { 
-        id: tasks.length + 1, 
+        id: Math.max(...tasks.map(t => t.id)) + 1, 
         title: req.body.title, 
         userId: parseInt(req.body.userId) 
     };

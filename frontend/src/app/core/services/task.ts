@@ -19,7 +19,7 @@ export class TaskService {
 
   //  جلب مهام مستخدم معين - للـ User
   getUserTasks(userId: number) {
-    return this.http.get<Task[]>(`${this.apiUrl}/tasks/user/${userId}`);
+    return this.http.get<Task[]>(`${this.apiUrl}/tasks`);
   }
 
   //  إضافة مهمة جديدة - للـ Admin بس

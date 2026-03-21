@@ -1,1 +1,21 @@
-<p>navbar works!</p>
+<nav class="navbar">
+    <div class="navbar-brand">
+        <h2>Task Manager</h2>
+    </div>
+
+    <div class="navbar-info">
+        <span>Welcome, {{ authService.currentUser()?.email }}</span>
+
+        @if (authService.isAdmin()) {
+            <span class="admin-badge">Admin</span>
+        }
+    </div>
+
+    <div class="navbar-actions">
+        <button (click)="goToTasks()">Tasks</button>
+        @if (authService.isAdmin()) {
+        <button (click)="goToAdmin()">Users</button>
+    }
+        <button class="logout-btn" (click)="onLogout()">Logout</button>
+    </div>
+</nav>

@@ -1,0 +1,51 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+    .not-found-card {
+        background: white;
+        padding: 3rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        max-width: 420px;
+        width: 100%;
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            color: #3182ce;
+            margin-bottom: 0;
+        }
+
+        h2 {
+            color: #1a202c;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #718096;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            padding: 0.8rem 2rem;
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: #2b6cb0;
+            }
+        }
+    }
+}

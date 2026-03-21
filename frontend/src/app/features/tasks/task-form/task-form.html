@@ -1,1 +1,35 @@
-<p>task-form works!</p>
+<div class="form-overlay">
+    <div class="form-card">
+        <h3>Add New Task</h3>
+
+        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+            <div class="input-group">
+                <label>Task Title</label>
+                <input 
+                    type="text" 
+                    formControlName="title" 
+                    placeholder="Enter task title" />
+                @if (taskForm.get('title')?.touched && taskForm.get('title')?.invalid) {
+                    <small class="error">Title is required</small>
+                }
+            </div>
+
+            <div class="input-group">
+                <label>Assign To (User ID)</label>
+                <input 
+                    type="number" 
+                    formControlName="userId" 
+                    placeholder="Enter user ID" />
+                @if (taskForm.get('userId')?.touched && taskForm.get('userId')?.invalid) {
+                    <small class="error">User ID is required</small>
+                }
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" [disabled]="taskForm.invalid">Add Task</button>
+            </div>
+
+        </form>
+    </div>
+</div>

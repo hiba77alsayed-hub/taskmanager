@@ -4,10 +4,12 @@
     <p>Manage your daily activities and progress</p>
   </div>
 
-  <button (click)="onLogout()">Logout</button>
-
   @if (authService.isAdmin()) {
-    <button>Add Task</button>
+    <button (click)="showForm = true">Add Task</button>
+  }
+
+  @if (showForm) {
+    <app-task-form (taskAdded)="onTaskAdded()" />
   }
 
   <div class="task-grid">
@@ -19,7 +21,6 @@
         <h3>{{ task.title }}</h3>
         <p>{{ task.description }}</p>
 
-        <!-- ✅ عدلناها من assignedTo لـ userId -->
         <small>User ID: {{ task.userId }}</small>
 
         @if (authService.isAdmin()) {

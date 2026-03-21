@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
 
   private apiUrl = environment.apiUrl;
-  
+
   currentUser = signal<User | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {
@@ -42,5 +42,9 @@ export class AuthService {
 
   isAdmin(): boolean {
     return this.currentUser()?.role === 'admin';
+  }
+
+  getUsers() {
+    return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
 }
